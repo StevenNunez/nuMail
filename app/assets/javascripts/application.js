@@ -19,3 +19,36 @@
 //= require_tree .
 
 var App = Ember.Application.create();
+
+App.Router.map(function(){
+  this.resource('messages', function(){
+    this.resource('message', {path: '/:message_id'})
+  });
+});
+
+App.MessagesRoute = Ember.Route.extend({
+  model: function(){
+    return [
+    {
+      id: 1,
+      subject: "I like cake",
+      body: "What are you thoughts on cake?"
+    },
+    {
+      id: 2,
+      subject: "Please call me",
+      body: "Signed, Your mom"
+    }
+    ]
+  }
+});
+
+App.MessageRoute = Ember.Route.extend({
+  model: function(params){
+    return this.modelFor('messages').findBy('id', parseInt(params.message_id))
+  }
+})
+
+App.MessagesController = Ember.ArrayController.extend({
+  messageCount: Ember.computed.alias('model.length'),
+})

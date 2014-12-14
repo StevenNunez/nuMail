@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-sm-12">
+    Total Messages: {{ messageCount }}
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-4">
+    <ul>
+      {{#each message in controller}}
+        <li>{{#link-to 'message' message.id}}{{message.subject}}{{/link-to}}</li>
+      {{/each}}
+    </ul>
+  </div>
+  <div class="col-xs-8">
+    {{ outlet }}
+  </div>
+</div>
