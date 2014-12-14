@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require handlebars
+//= require bootstrap-sprockets
 //= require ember
 //= require_tree .
 
