@@ -16,39 +16,30 @@
 //= require handlebars
 //= require bootstrap-sprockets
 //= require ember
+//= require ember-data
+//= require_self
 //= require_tree .
 
-var App = Ember.Application.create();
+var NuMail = Ember.Application.create();
 
-App.Router.map(function(){
+NuMail.Router.map(function(){
   this.resource('messages', function(){
     this.resource('message', {path: '/:message_id'})
   });
 });
 
-App.MessagesRoute = Ember.Route.extend({
+NuMail.MessagesRoute = Ember.Route.extend({
   model: function(){
-    return [
-    {
-      id: 1,
-      subject: "I like cake",
-      body: "What are you thoughts on cake?"
-    },
-    {
-      id: 2,
-      subject: "Please call me",
-      body: "Signed, Your mom"
-    }
-    ]
+    return this.store.findAll('message')
   }
 });
 
-App.MessageRoute = Ember.Route.extend({
+NuMail.MessageRoute = Ember.Route.extend({
   model: function(params){
-    return this.modelFor('messages').findBy('id', parseInt(params.message_id))
+    return this.store.find('message', params.message_id);
   }
 })
 
-App.MessagesController = Ember.ArrayController.extend({
+NuMail.MessagesController = Ember.ArrayController.extend({
   messageCount: Ember.computed.alias('model.length'),
 })
