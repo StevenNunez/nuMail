@@ -24,7 +24,8 @@ var NuMail = Ember.Application.create();
 
 NuMail.Router.map(function(){
   this.resource('messages', function(){
-    this.resource('message', {path: '/:message_id'})
+    this.resource('message', {path: '/:message_id'});
+    this.route('new');
   });
 });
 
@@ -41,5 +42,23 @@ NuMail.MessageRoute = Ember.Route.extend({
 })
 
 NuMail.MessagesController = Ember.ArrayController.extend({
-  messageCount: Ember.computed.alias('model.length'),
+  messageCount: Ember.computed.alias('model.length')
+});
+
+NuMail.MessagesNewController = Ember.Controller.extend({
+  subject: '',
+  body: '',
+  actions: {
+    createMessage: function(){
+      var message = this.store.createRecord('message', {
+        subject: this.get('subject'),
+        body: this.get('body')
+      });
+
+      var controller = this;
+      message.save().then(function(m){
+        controller.transitionToRoute('message', m);
+      })
+    }
+  }
 })

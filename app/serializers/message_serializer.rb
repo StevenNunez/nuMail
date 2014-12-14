@@ -1,7 +1,3 @@
 class MessageSerializer < ActiveModel::Serializer
-  attributes :id, :subject, :body, :recipient
-
-  def recipient
-    "Steven"
-  end
+  attributes :id, :subject, :body
 end

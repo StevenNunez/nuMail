@@ -1,0 +1,15 @@
+<form>
+  <div>
+    <label for="subject">
+      Subject
+    </label>
+    {{input valueBinding='subject'}}
+  </div>
+  <div>
+    <label for="body">
+      Body
+    </label>
+    {{textarea valueBinding='body'}}
+    <button {{action 'createMessage'}}>Create Message</button>
+  <div>
+  </form>
